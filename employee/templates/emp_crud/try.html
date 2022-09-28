@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <select onchange="showMe(this);">
+        <option>Hide</option>
+        <option>Show</option>
+    </select>
+    
+    <div id="idShowMe" style="display: none">
+        <b>Hello world!</b>
+    </div>
+
+    <script>
+
+function showMe(e) {
+    var strdisplay = e.options[e.selectedIndex].value;
+    var e = document.getElementById("idShowMe");
+    if(strdisplay == "Hide") {
+        e.style.display = "none";
+    } else {
+        e.style.display = "block";
+    }
+}
+    </script>
+</body>
+</html>

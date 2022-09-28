@@ -1,0 +1,159 @@
+{% extends 'empbase.html' %}
+{% load static %}
+{% block style %}
+<link href="http://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/css/datepicker.css" rel="stylesheet" type="text/css" />
+{% endblock style %}
+
+{% block content %}  
+
+<div class="page-body">
+<form method="post">{% csrf_token %}
+   <!-- Container-fluid starts-->
+   <div class="container-fluid">
+        <div class="card p-3 py-2">
+            <div class="row">
+                
+                <div class="col-md-6">
+                    <h5 class="mb-0 mt-2">Travel Allowances</h5>
+                </div>
+                
+            </div>
+        </div>
+        <div class="card p-3 py-2">
+            <div class="row">
+                
+               
+                    
+                        
+                        <div class="col-3">
+                            <select class="form-control" name="employee" id="">
+                                <option value="">Select Employee</option>
+                                {% for emp in employee %}
+                                  <option value="{{ emp.id }}">{{ emp }}</option>                                
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="col-3">
+                                 
+                            <input type="text" placeholder="From date" autocomplete="off" class="form-control" name="from_date" id="from_date">
+                        </div>
+                        <div class="col-3">
+                            
+                            <input type="text" placeholder="To date" autocomplete="off" class="form-control" name="to_date" id="to_date">
+                            
+
+                        </div>
+                        <div class="col-3">
+                            <input type="submit" class="btn btn-outline-primary" value="search">
+                        </div>
+                        
+                        
+                   
+                
+                
+            </div>
+        </div>
+        <div class="card rs-mt-10 rs-br-0">
+            <div class="card-body p-4 rs-p-0">
+                <div class="">
+                    <table class="table rs_table">
+                        <thead>
+                            <tr>
+                                <th class="rs-w-5"><span  class="hidden-xs">Sl No.</span></th>
+                                <th>Name</th>
+                                <th>Date</th>
+                                <th>From</th>
+                                <th>To</th>
+                                <th>Distance</th>
+                                <th>Expense</th>
+                                <th>Purpose</th>
+                                <th>Remarks</th>
+                                <th>status</th>
+                                <th class="rs-text-right">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for transport in transports %}
+                            
+                            <tr>
+                                <td class="rs-pr-0">
+                                    <span class="badge rounded-pill badge-primary visible-xs">{{ forloop.counter }}</span>
+                                    <span class="hidden-xs">{{ forloop.counter }}</span>
+                                </td>
+                                <td>{{ transport.emp.name|capfirst }}</td>
+                                <td>{{ transport.date }}</td>
+                                <td>{{ transport.from_where|capfirst }}</td>
+                                <td>{{ transport.destination|capfirst }}</td>
+                                <td>{{ transport.distance }}</td>
+                                <td>{{ transport.expense}}</td>
+                                <td>{{ transport.purpose|capfirst}}</td>
+                                <td>{{ transport.remarks|capfirst}}</td>
+                                <td>{{ transport.status}}</td>
+                                <td class="rs-text-right">
+                                    {% if transport.status == "P" %}
+                                    <a href="{% url 'emp_travel_approve' transport.id %}" class="btn btn-sm btn-outline-success">Approve</a>
+                                    <a href="{% url 'emp_travel_reject' transport.id %}" class="btn btn-sm btn-outline-danger">Reject</a>
+                                    {% elif transport.status == "R" %}
+                                    <a href="{% url 'emp_travel_approve' transport.id %}" class="btn btn-sm btn-outline-success">Approve</a>
+                                    <button class="btn text-danger" disabled>Rejected</button>
+                                    {% elif transport.status == "A" %}
+                                    <a href="{% url 'emp_travel_reject' transport.id %}" class="btn btn-sm btn-outline-danger">Reject</a>
+                                    <button class="btn text-success" disabled>Approved</button>
+                                    {% endif %}
+                                    </td>
+                                
+                            </tr>
+
+                            {% endfor %}
+                            
+                            
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+   <!-- Container-fluid Ends-->
+   </form>
+</div>
+
+{% endblock content %}
+{% block script %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.js"></script>
+<script>
+    $("#from_date").datepicker({
+        format: 'yyyy/mm/dd',
+        autoclose: true, 
+        }).on('changeDate', function (selected) {
+            var minDate = new Date(selected.date.valueOf());
+            var someDate = new Date(selected.date.valueOf());
+            var numberOfDaysToAdd = 500;
+        someDate.setDate(someDate.getDate() + numberOfDaysToAdd);
+            var dd = someDate.getDate();
+        var mm = someDate.getMonth() + 1;
+        var y = someDate.getFullYear();
+        var someFormattedDate = y + '/'+ mm + '/'+ dd;
+    
+            $('#to_date').datepicker('setStartDate', minDate);
+            $('#to_date').datepicker('setEndDate', someFormattedDate);
+        });
+    
+    $("#to_date").datepicker({     
+        format: 'yyyy/mm/dd',
+        autoclose: true,
+        }).on('changeDate', function (selected) {
+            var maxDate = new Date(selected.date.valueOf());
+            var someDate = new Date(selected.date.valueOf());
+            var numberOfDaysToAdd = 500;
+        someDate.setDate(someDate.getDate() - numberOfDaysToAdd);
+        var dd = someDate.getDate();
+        var mm = someDate.getMonth() + 1;
+        var y = someDate.getFullYear();
+        var someFormattedDate = y + '/'+ mm + '/'+ dd;
+            $('#from_date').datepicker('setStartDate', someFormattedDate);
+            $('#from_date').datepicker('setEndDate', maxDate);
+        });
+    
+</script>
+{% endblock script %}

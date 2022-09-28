@@ -1,0 +1,118 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}  
+
+<div class="page-body">
+<form>
+   <!-- Container-fluid starts-->
+   <div class="container-fluid">
+        <div class="card p-3 py-2">
+            <div class="row">
+                <div class="col-md-6">
+                    <h5 class="mb-0 mt-2">Reports</h5>
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid">
+           <div class="card p-3 py-2">
+              <div class="row">
+                 <div class="col-md-6">
+                    <h5 class="mb-0 mt-2">Transactions</h5>
+                 </div>
+            </div>
+        </div>
+            <ul>
+                <li><div class="container-fluid">
+                     <div class="card p-3 py-2">
+                      <div class="row">
+                       <div class="col-md-6">
+                         <h5 class="mb-0 mt-2">
+                            <a href="{% url 'sale_report' %} ">Sale Report</a></h5>
+                       </div>
+                      </div>
+                    </div></li>
+                <li><div class="container-fluid">
+                     <div class="card p-3 py-2">
+                      <div class="row">
+                       <div class="col-md-6">
+                         <h5 class="mb-0 mt-2">
+                           <a href="{% url 'purchase_report' %}">Purchase Report</button></h5>
+                       </div>
+                      </div>
+                    </div></li>
+                <li><div class="container-fluid">
+                     <div class="card p-3 py-2">
+                      <div class="row">
+                       <div class="col-md-6">
+                         <h5 class="mb-0 mt-2">
+                           <a href="{% url 'daybook' %}">Daybook</button></h5>
+                       </div>
+                      </div>
+                    </div></li>
+                <li><div class="container-fluid">
+                     <div class="card p-3 py-2">
+                      <div class="row">
+                       <div class="col-md-6">
+                         <h5 class="mb-0 mt-2">
+                           <a href="{% url 'due_list' %}">Due List</button></h5>
+                       </div>
+                      </div>
+                    </div></li>
+                <li><div class="container-fluid">
+                     <div class="card p-3 py-2">
+                      <div class="row">
+                       <div class="col-md-6">
+                         <h5 class="mb-0 mt-2">
+                           <a href="{% url 'stock_summary_report' %}">Stock Summary Report</button></h5>
+                       </div>
+                      </div>
+                  </div></li>
+            </ul>       
+        </div>
+    </div>
+    <div class="container-fluid">
+           <div class="card p-3 py-2">
+              <div class="row">
+                 <div class="col-md-6">
+                    <h5 class="mb-0 mt-2">GST Reports</h5>
+                 </div>
+            </div>
+        </div>
+            <ul>
+                <li><div class="container-fluid">
+                     <div class="card p-3 py-2">
+                      <div class="row">
+                       <div class="col-md-6">
+                         <h5 class="mb-0 mt-2">
+                           <a href="{% url 'gstr1' %}">GSTR1</button></h5>
+                       </div>
+                      </div>
+                    </div></li>
+                <li><div class="container-fluid">
+                     <div class="card p-3 py-2">
+                      <div class="row">
+                       <div class="col-md-6">
+                         <h5 class="mb-0 mt-2">
+                           <a href="{% url 'gstr2' %}">GSTR2</button></h5>
+                       </div>
+                      </div>
+                    </div></li>
+                <li><div class="container-fluid">
+                     <div class="card p-3 py-2">
+                      <div class="row">
+                       <div class="col-md-6">
+                         <h5 class="mb-0 mt-2">
+                           <a href="{% url 'gstr3b' %}">GSTR3B</button></h5>
+                       </div>
+                      </div>
+                    </div></li>
+            </ul>       
+        </div>
+    </div>
+  </div>
+    </div>
+   <!-- Container-fluid Ends-->
+   </form>
+</div>
+
+{% endblock content %}

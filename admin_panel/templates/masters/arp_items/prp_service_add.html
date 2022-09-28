@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+ 
+{% block style %}
+<style>
+   .w-50-m-auto{width:50%!important;margin:auto!important;}
+</style>
+{% endblock style %}
+
+
+{% block content %}
+
+<div class="page-body">
+   <form method="post">
+    {% csrf_token %}
+   <div class="container-fluid">
+      <div class="row">
+         <div class="col-sm-12 col-md-6">
+            <div class="card">
+               <div class="card-header px-4 py-3">
+                  <h5>Add Service</h5>
+               </div>
+               <div class="card-body p-4 rs-py-10">
+                  <div class="mb-2 row">
+                     <label class="col-md-4 col-form-label rs-pb-0">Service Name</label>
+                     <div class="col-md-8">
+                        <div class="input-group">
+                           <input class="form-control" type="text" name="name" >
+                        </div>
+                     </div>
+                  </div>
+                  
+                  <div class="mb-2 row">
+                     <label class="col-md-4 col-form-label rs-pb-0">HSN/SAC</label>
+                     <div class="col-md-8">
+                        <div class="input-group">
+                           <input class="form-control" type="text" name="hsn" >
+                        </div>
+                     </div>
+                  </div>
+               
+                  <div class="mb-2 row">
+                     <label class="col-md-4 col-form-label rs-pb-0">Service code</label>
+
+                     <div class="col-md-8">
+                        <div class="input-group">
+
+                           <input class="form-control" type="text" name="service_code" >
+                        </div>
+                     </div>
+                  </div>
+               
+                  <div class="mb-2 row">
+                     <label class="col-md-4 col-form-label rs-pb-0">Service Price</label>
+
+                     <div class="col-md-8">
+                        <div class="input-group">
+
+                           <input class="form-control" type="number" name="price" >
+                        </div>
+                     </div>
+                  </div>
+                  
+                  
+               </div>
+            </div>
+         </div>
+         <div class="card-footer text-end py-4 rs-py-10">
+                        <div class="col-sm-9 offset-sm-3">
+                           <button class="btn btn-primary" type="submit" data-bs-original-title="" title="">Submit</button>
+                           <input class="btn btn-light" type="reset" value="Cancel" data-bs-original-title="" title="">
+                        </div>
+                     </div>
+            </div>
+        </div>
+      </div>
+   </div>
+   </form>
+</div>
+
+
+
+{% endblock content %}

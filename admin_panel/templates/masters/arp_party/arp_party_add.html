@@ -1,0 +1,174 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+
+{% block style %}
+<style>
+   .w-50-m-auto {
+      width: 50% !important;
+      margin: auto !important;
+   }
+</style>
+{% endblock style %}
+
+
+{% block content %}
+
+<div class="page-body">
+   <form method="post">
+      {% csrf_token %}
+      <div class="container-fluid">
+         <div class="row">
+            <div class="col-sm-12 col-md-6">
+               <div class="card">
+                  <div class="card-header px-4 py-3">
+                     <h5>Add ARP Party</h5>
+                  </div>
+                  <div class="card-body p-4 rs-py-10">
+                     <div class="mb-2 row">
+                        <label class="col-md-4 col-form-label rs-pb-0">Party Name</label>
+                        <div class="col-md-8">
+                           <div class="input-group">
+                              <input class="form-control" type="text" name="name" required minlength="2" maxlength="30">
+                           </div>
+                        </div>
+                     </div>
+
+                     <div class="mb-2 row">
+                        <label class="col-md-4 col-form-label rs-pb-0">phone</label>
+                        <div class="col-md-8">
+                           <div class="input-group">
+                              <input class="form-control" type="text" pattern="[6789][0-9]{9}" oninput="numbersonly(this)"
+                                 title="Please enter exactly 10 digits" name="phone" id="phone" required maxlength="10">
+                           </div>
+                        </div>
+                     </div>
+
+                     <div class="mb-2 row">
+                        <label class="col-md-4 col-form-label rs-pb-0">Address</label>
+
+                        <div class="col-md-8">
+                           <div class="input-group">
+
+                              <input class="form-control" type="text" name="address" required minlength="2"
+                                 maxlength="100">
+                           </div>
+                        </div>
+                     </div>
+                     <div class="mb-2 row">
+                        <label class="col-md-4 col-form-label rs-pb-0">email</label>
+                        <div class="col-md-8">
+                           <div class="input-group">
+                              <input class="form-control" type="email" name="email" required>
+
+
+                           </div>
+                        </div>
+                     </div>
+                     <div class="mb-2 row">
+                        <label class="col-md-4 col-form-label rs-pb-0">state</label>
+                        <div class="col-md-8">
+                           <div class="input-group">
+                              <input class="form-control" type="text" name="state" required>
+
+                           </div>
+                        </div>
+                     </div>
+                     <div class="mb-2 row">
+                        <label class="col-md-4 col-form-label rs-pb-0">date</label>
+                        <div class="col-md-8">
+                           <div class="input-group">
+                              <input class="form-control" type="date" name="date" required id="date">
+
+                           </div>
+                        </div>
+                     </div>
+                     <div class="mb-2 row">
+                        <label class="col-md-4 col-form-label rs-pb-0">opening balance</label>
+                        <div class="col-md-8">
+                           <div class="input-group">
+                              <input class="form-control" type="number" name="opening_balance" required>
+
+                           </div>
+                        </div>
+                     </div>
+                     <div class="mb-2 row">
+                        <label class="col-md-4 col-form-label rs-pb-0">Gst Number</label>
+                        <div class="col-md-8">
+                           <div class="input-group">
+                              <input class="form-control gst" type="text" id="upper" name="gst_number" minlength="15" maxlength="15" required
+                                 pattern="^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[1-9A-Z]{1}Z[0-9A-Z]{1}$"
+                                 title="Invalid GST Number.">
+
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <div class="card-footer text-end py-4 rs-py-10">
+               <div class="col-sm-9 offset-sm-3">
+                  <button class="btn btn-primary" type="submit" data-bs-original-title="" title="">Submit</button>
+                  <input class="btn btn-light" type="reset" value="Cancel" data-bs-original-title="" title="">
+               </div>
+            </div>
+         </div>
+      </div>
+</div>
+</div>
+</form>
+</div>
+
+
+
+{% endblock content %}
+
+
+{% block script %}
+
+<script>
+   $(function () {
+      var dtToday = new Date();
+
+      var month = dtToday.getMonth() + 1;
+
+      var day = dtToday.getDate();
+      var year = dtToday.getFullYear();
+      if (month < 10)
+         month = '0' + month.toString();
+      if (day < 10)
+         day = '0' + day.toString();
+
+      var maxDate = year + '-' + month + '-' + day;
+      $('#date').attr('max', maxDate);
+   });
+
+   $(function () {
+      $('#upper').keyup(function () {
+         this.value = this.value.toLocaleUpperCase();
+      });
+   });
+   function phoneonly(input) {
+
+      var regex = /^\d{10}$/;
+      input.value = input.value.replace(regex, "");
+   }
+
+
+   // $(document).ready(function () {
+   //    $(".gst").change(function () {
+   //       var inputvalues = $(this).val();
+   //       var gstinformat = new RegExp('^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]1}[1-9A-Z]{1}Z[0-9A-Z]{1}$');
+   //       if (gstinformat.test(inputvalues)) {
+   //          return true;
+   //       } else {
+   //          alert('Please Enter Valid GSTIN Number');
+   //          $(".gst").val('');
+   //          $(".gst").focus();
+   //       }
+   //    });
+   // });
+</script>
+
+{% endblock script %}

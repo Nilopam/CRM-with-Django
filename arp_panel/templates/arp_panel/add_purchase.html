@@ -1,0 +1,147 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<div class="page-body">
+
+    <!-- Container-fluid starts-->
+    <div class="container-fluid">
+        <div class="user-profile mt-5">
+            <div class="row">
+                <div class="col-md-6">
+                    <h5 class="mb-0 mt-2">Add Purchase</h5>
+                </div>
+                
+                <!-- user profile first-style start-->
+                <div class="col-sm-6 offset-md-3 col-12">
+                    <div class="card hovercard text-center mt-3 rs-mt-60">
+
+
+                        <form action="" id="add_purchase" method="post">
+                            {% csrf_token %}
+                            <div class="info mt-5 text-start">
+                                <div class="mb-2 row">
+                                    <label class="rs-pb-0 col-md-4 col-12 col-form-label">Date</label>
+                                    <div class="col-md-8 col-12">
+                                        <input type="date" name="date" id="date" class="form-control" required minlength="2" maxlength="30">
+                                    </div>
+                                </div>
+                                <div class="mb-2 row">
+                                    <label class="rs-pb-0 col-md-4 col-12 col-form-label">Financial Year</label>
+                                      <select id="year" name="year" class="form-select">
+                                         {% for i in fan %}  
+                                             <option value="{{ i }}">{{ i.year }}</option>
+                                         {% endfor %}
+                                      </select>
+                                  </div>
+                                <div class="mb-2 row">
+                                    <label class="rs-pb-0 col-md-4 col-12 col-form-label">Bill No</label>
+                                    <div class="col-md-8 col-12">
+                                        <input type="number" name="bill_no" class="form-control" required>
+                                    </div>
+                                </div>
+                                <div class="mb-2 row">
+                                    <label class="rs-pb-0 col-md-4 col-12 col-form-label">Party Name</label>
+                                    <select id="party_name" name="party_name" class="form-select">
+                                       {% for i in party %}  
+                                           <option value="{{ i }}">{{ i.name }}</option>
+                                       {% endfor %}
+                                    </select>
+                                </div>
+                                <div class="col-md-6">
+                                    <a href="{% url 'add_items' %} "><b><u>Add Items</b></u></a>
+                                </div>
+                                <div class="mt-4 row">
+                                    <label class="rs-pb-0 col-md-4 col-12 col-form-label">Total</label>
+                                    <p class="d-flex justify-content-start col product_name" id="name">Item Name</p>
+                                    <p class="d-flex justify-content-end col total_tax" id="tax">Tax</p>
+                                    <p id="total"></p>
+                                </div>
+                                <div class="mb-2 row">
+                                    <label class="rs-pb-0 col-md-4 col-12 col-form-label">Subtotal Amount</label>
+                                    <div class="col-md-8 col-12">
+                                        <input type="text" name="subtotal_amount" id="sub_total" class="form-control" required>
+                                    </div>
+                                </div>
+                                <div class="mb-2 row">
+                                    <label class="rs-pb-0 col-md-4 col-12 col-form-label">Final Amount</label>
+                                    <div class="col-md-8 col-12">
+                                        <input type="text" name="final_amount" id="final_total" class="form-control" required>
+                                    </div>
+                                </div>
+                                <div class="mb-2 row">
+                                    <label class="rs-pb-0 col-md-4 col-12 col-form-label">Payment Type</label>
+                                    <div class="col-md-8 col-12">
+                                        <input type="text" name="payment_type" class="form-control" required>
+                                    </div>
+                                </div>
+                                <div class="mb-2 row">
+                                    <label class="rs-pb-0 col-md-4 col-12 col-form-label">State of Supply</label>
+                                    <div class="col-md-8 col-12">
+                                      <select id="state_of_supply" name="state_of_supply" class="form-select" required>
+                                         {% for i,j in STATE %}  
+                                            <option value="{{ i }}">{{ j }}</option>
+                                         {% endfor %}
+                                      </select>
+                                    </div>
+                                </div>
+                                <div class="mb-2 row">
+                                    <label class="rs-pb-0 col-md-4 col-12 col-form-label">Description</label>
+                                    <div class="col-md-8 col-12">
+                                        <input type="text" id="description" name="description" class="form-control" required>
+                                    </div>
+                                </div>
+                                <div class="card-footer text-end pt-2 p-0 mt-2">
+                                    <div class="col-sm-9 offset-sm-3">
+                                        <button class="btn btn-primary" type="submit" data-bs-original-title=""
+                                            title="">ADD</button>
+    
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Container-fluid Ends-->
+
+</div>
+
+{% endblock content %}
+
+{% block script %}
+
+<script>
+    $(function(){
+    var dtToday = new Date();
+    
+    var month = dtToday.getMonth() + 1;
+    
+    var day = dtToday.getDate();
+    var year = dtToday.getFullYear();
+    if(month < 10)
+        month = '0' + month.toString();
+    if(day < 10)
+        day = '0' + day.toString();
+    
+    var maxDate = year + '-' + month + '-' + day;
+    $('#date').attr('max', maxDate);
+});
+</script>
+
+<script>document.getElementById('name').innerText = localStorage.getItem('name');</script>
+<script>document.getElementById('tax').innerText = localStorage.getItem('tax');</script>
+<script>document.getElementById('total').innerText = localStorage.getItem('key');</script>
+<script>document.getElementById('sub_total').value = localStorage.getItem('key');</script>
+<script>document.getElementById('final_total').value = localStorage.getItem('key');</script>
+<script>document.getElementById('description').value = localStorage.getItem('description');</script>
+<script>
+window.onload = function()
+{
+ window.localStorage.clear();
+}
+</script>
+
+{% endblock script %}

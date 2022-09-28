@@ -1,0 +1,92 @@
+{% extends 'empbase.html' %}
+{% load static %}
+{% block content %}  
+
+<div class="page-body">
+<form method="post">
+    {% csrf_token %}
+   <!-- Container-fluid starts-->
+   <div class="container-fluid">
+        <div class="card p-3 py-2">
+            <div class="row">
+                
+                <div class="col-md-6">
+                    <h5 class="mb-0 mt-2">Resignation</h5>
+                </div>
+                
+            </div>
+        </div>
+        <div class="card p-3 py-2">
+            <div class="col-md-8">
+				<div class="frm_bck">
+					<h4 class="sub_hdng"></h4>
+					
+					<div class="row">
+                        <form method="POST">
+						<div class="col-md-6 col-xs-2">
+                            {% csrf_token %}
+							<div class=" label_up">
+                                <label class="lbl_txt default">Reason</label>
+		                       <input type="text" name="reason" value="" class="form-control new_input" required="">
+	                       </div>
+					        	<center><button type="submit" name="submit" class="sbmt_btn mt-2 btn btn-primary">Submit</button></center>
+                        </div>
+                    </form>
+					</div>
+					
+					
+				</div>
+			</div>
+        </div>
+
+
+
+        <div class="card rs-mt-10 rs-br-0">
+            <div class="card-body p-4 rs-p-0">
+                <div class="">
+                    <table class="table rs_table">
+                        <thead>
+                            <tr>
+                                <th class="rs-w-5"><span  class="hidden-xs">Sl No.</span></th>
+                                <th>Name</th>
+                                
+                                <th>Reason</th>
+                                <th>status</th>
+                                {% comment %} <th>Withdraw</th> {% endcomment %}
+                                
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for resignation in resignations %}
+                            
+                            <tr>
+                                <td class="rs-pr-0">
+                                    <span class="badge rounded-pill badge-primary visible-xs">{{ forloop.counter }}</span>
+                                    <span class="hidden-xs">{{ forloop.counter }}</span>
+                                </td>
+                                <td>{{ resignation.emp.name|capfirst }}</td>
+                                
+                                <td>{{ resignation.reason|capfirst }}</td>
+                                <td>{% if resignation.status == 'P' %}<p class="text-warning">Pending</p>
+                                    {% elif resignation.status == 'A' %}<p class="text-success">Approved</p>
+                                    {% else %}<p class="text-danger">Rejected</p>
+                                    {% endif %}</td>
+                                {% comment %} <td><a href="" class="btn btn-sm btn-outline-warning">WithDraw</a></td> {% endcomment %}
+                                
+                                
+                            </tr>
+
+                            {% endfor %}
+                            
+                            
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+   <!-- Container-fluid Ends-->
+   </form>
+</div>
+
+{% endblock content %}

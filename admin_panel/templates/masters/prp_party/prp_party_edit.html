@@ -1,0 +1,118 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+ 
+{% block style %}
+<style>
+   .w-50-m-auto{width:50%!important;margin:auto!important;}
+</style>
+{% endblock style %}
+
+
+{% block content %}
+
+<div class="page-body">
+   <form method="post">
+    {% csrf_token %}
+   <div class="container-fluid">
+      <div class="row">
+         <div class="col-sm-12 col-md-6">
+            <div class="card">
+               <div class="card-header px-4 py-3">
+                  <h5>Edit PRP Party</h5>
+               </div>
+               <div class="card-body p-4 rs-py-10">
+                  <div class="mb-2 row">
+                     <label class="col-md-4 col-form-label rs-pb-0">Party Name</label>
+                     <div class="col-md-8">
+                        <div class="input-group">
+                           <input class="form-control" type="text" name="name" value="{{ party.name }}">
+                        </div>
+                     </div>
+                  </div>
+                  
+                  <div class="mb-2 row">
+                     <label class="col-md-4 col-form-label rs-pb-0">phone</label>
+                     <div class="col-md-8">
+                        <div class="input-group">
+                           <input class="form-control" type="number" name="phone" value="{{ party.phone }}">
+                        </div>
+                     </div>
+                  </div>
+               
+                  <div class="mb-2 row">
+                     <label class="col-md-4 col-form-label rs-pb-0">Address</label>
+
+                     <div class="col-md-8">
+                        <div class="input-group">
+
+                           <input class="form-control" type="text" name="address" value="{{ party.address }}" >
+                        </div>
+                     </div>
+                  </div>
+                  <div class="mb-2 row">
+                     <label class="col-md-4 col-form-label rs-pb-0">email</label>
+                     <div class="col-md-8">
+                        <div class="input-group">
+                            <input class="form-control" type="email" name="email" value="{{ party.email }}">
+                           
+                            
+                        </div>
+                     </div>
+                  </div>
+                  <div class="mb-2 row">
+                     <label class="col-md-4 col-form-label rs-pb-0">state</label>
+                     <div class="col-md-8">
+                        <div class="input-group">
+                            <input class="form-control" type="text" name="state" value="{{ party.state }}" >     
+                        
+                        </div>
+                     </div>
+                  </div>
+                  <div class="mb-2 row">
+                     <label class="col-md-4 col-form-label rs-pb-0">date</label>
+                     <div class="col-md-8">
+                        <div class="input-group">
+                            <input class="form-control" type="date" name="date" value="{{ party.date|date:"Y-m-d" }}" >     
+                        
+                        </div>
+                     </div>
+                  </div>
+                  <div class="mb-2 row">
+                     <label class="col-md-4 col-form-label rs-pb-0">opening balance</label>
+                     <div class="col-md-8">
+                        <div class="input-group">
+                            <input class="form-control" type="number" name="opening_balance" value="{{ party.opening_balance }}" >     
+                        
+                        </div>
+                     </div>
+                  </div>
+                  <div class="mb-2 row">
+                     <label class="col-md-4 col-form-label rs-pb-0">Gst Number</label>
+                     <div class="col-md-8">
+                        <div class="input-group">
+                            <input class="form-control" type="text" name="gst_number" value="{{ party.gst_number }}">     
+                        
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <div class="card-footer text-end py-4 rs-py-10">
+                        <div class="col-sm-9 offset-sm-3">
+                           <button class="btn btn-primary" type="submit" data-bs-original-title="" title="">Update</button>
+                           <input class="btn btn-light" type="reset" value="Cancel" data-bs-original-title="" title="">
+                        </div>
+                     </div>
+            </div>
+        </div>
+      </div>
+   </div>
+   </form>
+</div>
+
+
+
+{% endblock content %}

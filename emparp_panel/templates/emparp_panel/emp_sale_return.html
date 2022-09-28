@@ -1,0 +1,69 @@
+{% extends 'empbase.html' %}
+{% load static %}
+{% block content %}  
+
+<div class="page-body">
+<form>
+   <!-- Container-fluid starts-->
+   <div class="container-fluid">
+        <div class="card p-3 py-2">
+            <div class="row">
+                <div class="col-md-6">
+                    <h5 class="mb-0 mt-2">Sale Return</h5>
+                </div>
+            </div>
+        </div>
+        <div class="card rs-mt-10 rs-br-0">
+            <div class="card-body p-4 rs-p-0">
+                <div class="">
+                    <table class="table rs_table">
+                        <thead>
+                            <tr>
+                                <th class="rs-w-5"><span  class="hidden-xs">Sl No.</span></th>
+                                <th>Date</th>
+                                <th>Party Name</th>
+                                <th>Sale Return Bill No</th>
+                                <th>Total Sale</th>
+                                <th>Balance</th>
+<!--                                <th class="rs-text-right">Action</th>-->
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for i in sr %}
+                            
+                            <tr>
+                                <td class="rs-pr-0">
+                                    <span class="badge rounded-pill badge-primary visible-xs">{{ forloop.counter }}</span>
+                                    <span class="hidden-xs">{{ forloop.counter }}</span>
+                                </td>
+                                <td>{{ i.date }}</td>
+                                <td>{{ i.party_name }}</td>
+                                <td>{{ i.bill_no }}</td>
+                                <td>{{ i.total_sale }}</td>
+                                <td>{{ i.balance }}</td>
+                                
+                                
+                                
+
+                                
+                                
+                                
+                                
+<!--                                <td class="rs-text-right"><a href="{% url 'emp_edit_sale_return' i.id %}" class="btn btn-outline-primary">Edit</a>-->
+<!--                                    <a href="{% url 'emp_delete_sale_return' i.id %}" class="btn btn-outline-danger">Delete</a></td>-->
+                            </tr>
+
+                            {% endfor %}
+                            
+                            
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+   <!-- Container-fluid Ends-->
+   </form>
+</div>
+
+{% endblock content %}

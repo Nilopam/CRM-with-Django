@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}  
+
+<div class="page-body">
+<form>
+   <!-- Container-fluid starts-->
+   <div class="container-fluid">
+        <div class="card p-3 py-2">
+            <div class="row">
+                
+                <div class="col-md-6">
+                    <h5 class="mb-0 mt-2">Travel Allowances</h5>
+                </div>
+                
+            </div>
+        </div>
+        <div class="card rs-mt-10 rs-br-0">
+            <div class="card-body p-4 rs-p-0">
+                <div class="">
+                    <table class="table rs_table">
+                        <thead>
+                            <tr>
+                                <th class="rs-w-5"><span  class="hidden-xs">Sl No.</span></th>
+                                <th>Name</th>
+                                <th>Date</th>
+                                <th>From</th>
+                                <th>To</th>
+                                <th>Distance</th>
+                                <th>Expense</th>
+                                <th>Purpose</th>
+                                <th>Remarks</th>
+                                <th>status</th>
+                                <th class="rs-text-right">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for transport in transports %}
+                            
+                            <tr>
+                                <td class="rs-pr-0">
+                                    <span class="badge rounded-pill badge-primary visible-xs">{{ forloop.counter }}</span>
+                                    <span class="hidden-xs">{{ forloop.counter }}</span>
+                                </td>
+                                <td>{{ transport.emp.name }}</td>
+                                <td>{{ transport.date }}</td>
+                                <td>{{ transport.from_where }}</td>
+                                <td>{{ transport.destination }}</td>
+                                <td>{{ transport.distance }}</td>
+                                <td>{{ transport.expense}}</td>
+                                <td>{{ transport.purpose}}</td>
+                                <td>{{ transport.remarks}}</td>
+                                <td>{{ transport.status}}</td>
+                                <td class="rs-text-right"><a href="{% url 'travel_approve' transport.id %}" class="btn btn-outline-success">Approve</a>
+                                    <a href="{% url 'travel_reject' transport.id %}" class="btn btn-outline-danger">Reject</a></td>
+                            </tr>
+
+                            {% endfor %}
+                            
+                            
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+   <!-- Container-fluid Ends-->
+   </form>
+</div>
+
+{% endblock content %}

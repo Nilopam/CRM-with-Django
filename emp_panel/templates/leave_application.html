@@ -1,0 +1,188 @@
+{% extends 'empbase.html' %}
+{% load static %}
+{% block style %}
+<link href="http://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/css/datepicker.css" rel="stylesheet" type="text/css" />
+{% endblock style %}
+{% block content %}
+
+<div class="page-body">
+
+    <!-- Container-fluid starts-->
+    <div class="container-fluid">
+        <div class="card p-3 py-2">
+            <div class="row">
+
+                <div class="col-md-6">
+                    <h5 class="mb-0 mt-2">Leave Appointment Form</h5>
+                </div>
+
+            </div>
+        </div>
+        <div class="card p-3 py-2">
+            <div class="col-md-8">
+                <div class="frm_bck">
+                    <form action="" method="post">
+                        {% csrf_token %}
+                        <input type="hidden" name="form-type" value="add">
+                        <h4 class="sub_hdng"></h4>
+                        <div class="row">
+                            <div class="col-md-6 col-xs-2">
+                                <div class=" label_up">
+                                    <label class="lbl_txt default">From Date </label>
+                                    <input type="text" placeholder="From date" autocomplete="off" class="form-control" name="from_date" id="from_date">
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-xs-2">
+                                <div class=" label_up">
+                                    <label class="lbl_txt default">To Date</label>
+                                    <input type="text" placeholder="To date" autocomplete="off" class="form-control" name="to_date" id="to_date">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 col-xs-2">
+                                <div class=" label_up">
+                                    <label class="lbl_txt default">Category</label>
+
+                                    <select class="form-control new_input" name="category">
+                                        <option value="">Select category</option>
+                                        {% for i,j in category %}
+                                        <option value="{{i}}">{{j}}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-xs-2">
+                                <div class=" label_up">
+                                    <label class="lbl_txt default">Reason</label>
+                                    <input type="text" name="reason" value="" class="form-control new_input"
+                                        required="">
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+                        <center><button type="submit" name="submit" class="sbmt_btn btn btn-primary">Submit</button>
+                        </center>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="card p-3 py-2">
+            <form action="" method="post">
+                <div class="row">
+
+                    {% csrf_token %}
+                    <input type="hidden" name="form-type" value="filter">
+                    <div class="col-md-3">
+
+                        <input type="date" name="fromdate" class="form-control" id="">
+
+                    </div>
+                    <div class="col-md-3">
+                        <select name="category" class="form-control" id="">
+                            <option value="">Select category</option>
+                            <option value="EL">EL</option>
+                            <option value="CL">CL</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <input type="submit" value="search" class="btn btn-outline-primary">
+                    </div>
+
+                </div>
+            </form>
+        </div>
+
+        <div class="card rs-mt-10 rs-br-0">
+            <div class="card-body p-4 rs-p-0">
+                <div class="">
+                    <table class="table rs_table">
+                        <thead>
+                            <tr>
+                                <th class="rs-w-5"><span class="hidden-xs">Sl No.</span></th>
+                                <th>Name</th>
+                                <th>From date</th>
+                                <th>To date</th>
+                                <th>category</th>
+                                <th>Reason</th>
+                                <th>status</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for leave in leaves %}
+
+                            <tr>
+                                <td class="rs-pr-0">
+                                    <span class="badge rounded-pill badge-primary visible-xs">{{ forloop.counter
+                                        }}</span>
+                                    <span class="hidden-xs">{{ forloop.counter }}</span>
+                                </td>
+                                <td>{{ leave.emp.name|capfirst }}</td>
+                                <td>{{ leave.from_date }}</td>
+                                <td>{{ leave.to_date }}</td>
+                                <td>{{ leave.category|capfirst }}</td>
+                                <td>{{ leave.reason|capfirst }}</td>
+                                <td>{% if leave.status == 'P' %}<p class="text-warning">Pending</p>
+                                    {% elif leave.status == 'A' %}<p class="text-success">Approved</p>
+                                    {% else %}<p class="text-danger">Rejected</p>
+                                    {% endif %}</td>
+
+
+                            </tr>
+
+                            {% endfor %}
+
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Container-fluid Ends-->
+
+</div>
+
+{% endblock content %}
+
+{% block script %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.js"></script>
+<script>
+    $("#from_date").datepicker({
+        format: 'yyyy/mm/dd',
+        autoclose: true, 
+        }).on('changeDate', function (selected) {
+            var minDate = new Date(selected.date.valueOf());
+            var someDate = new Date(selected.date.valueOf());
+            var numberOfDaysToAdd = 500;
+        someDate.setDate(someDate.getDate() + numberOfDaysToAdd);
+            var dd = someDate.getDate();
+        var mm = someDate.getMonth() + 1;
+        var y = someDate.getFullYear();
+        var someFormattedDate = y + '/'+ mm + '/'+ dd;
+    
+            $('#to_date').datepicker('setStartDate', minDate);
+            $('#to_date').datepicker('setEndDate', someFormattedDate);
+        });
+    
+    $("#to_date").datepicker({     
+        format: 'yyyy/mm/dd',
+        autoclose: true,
+        }).on('changeDate', function (selected) {
+            var maxDate = new Date(selected.date.valueOf());
+            var someDate = new Date(selected.date.valueOf());
+            var numberOfDaysToAdd = 500;
+        someDate.setDate(someDate.getDate() - numberOfDaysToAdd);
+        var dd = someDate.getDate();
+        var mm = someDate.getMonth() + 1;
+        var y = someDate.getFullYear();
+        var someFormattedDate = y + '/'+ mm + '/'+ dd;
+            $('#from_date').datepicker('setStartDate', someFormattedDate);
+            $('#from_date').datepicker('setEndDate', maxDate);
+        });
+    
+</script>
+{% endblock script %}

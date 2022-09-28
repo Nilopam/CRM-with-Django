@@ -1,0 +1,401 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block style %}
+<style>
+    .w-50-m-auto {
+        width: 50% !important;
+        margin: auto !important;
+    }
+</style>
+{% endblock style %}
+
+
+{% block content %}
+
+
+<div class="page-body">
+
+
+
+
+
+    <form action="" method="post">
+
+        <!-- Container-fluid starts-->
+    <div class="container-fluid">
+        <div class="user-profile mt-5">
+            <div class="row">
+                <div class="col-md-6">
+                    <h5 class="mb-0 mt-2">Edit Emp</h5>
+                </div>
+                <!-- user profile first-style start-->
+                <div class="col-sm-6 offset-md-3 col-12">
+                    <div class="card hovercard text-center mt-3 rs-mt-60">
+                        <form method="post" enctype="multipart/form-data">
+                            {% csrf_token %}
+
+                            <div class="info mt-5 text-start">
+                                <div class="mb-2 row">
+                                    {{ Empform.name.label }}
+                                    {{ Empform.name }}
+                                    
+                                </div>
+                                <div class="mb-2 row">
+                                    {{ Empform.address.label }}
+                                    {{ Empform.address }}
+                                </div>
+                                <div class="mb-2 row">
+
+                                    {{ Empform.dob.label }}
+                                    {{ Empform.dob }}
+                                </div>
+                                <div class="mb-2 row">
+
+                                    {{ Empform.guardian_name.label }}
+                                    {{ Empform.guardian_name }}
+                                </div>
+                                <div class="mb-2 row">
+
+                                    {{ Empform.qualification.label }}
+                                    {{ Empform.qualification }}
+                                </div>
+                            </div>
+                            <div class="info mt-5 text-start">
+                                <div class="mb-2 row">
+                                    {{ Empform.designation.label }}
+                                    {{ Empform.designation }}
+                                    
+                                </div>
+                                <div class="mb-2 row">
+                                    {{ Empform.place_of_work.label }}
+                                    {{ Empform.place_of_work }}
+                                </div>
+                                <div class="mb-2 row">
+
+                                    {{ Empform.joining_Date.label }}
+                                    {{ Empform.joining_Date }}
+                                </div>
+                                <div class="mb-2 row">
+
+                                    {{ Empform.emp_type.label }}
+                                    {{ Empform.emp_type }}
+                                </div>
+                                <div class="mb-2 row">
+
+                                    {{ Empform.under_of.label }}
+                                    {{ Empform.under_of }}
+                                </div>
+                            
+                            </div>
+
+
+                            <div class="info mt-5 text-start">
+                                <div class="mb-2 row">
+                                    {{ Empform.mobile.label }}
+                                    {{ Empform.mobile }}
+                                    
+                                </div>
+                                <div class="mb-2 row">
+                                    {{ Empform.corporate_mobile.label }}
+                                    {{ Empform.corporate_mobile }}
+                                </div>
+                                <div class="mb-2 row">
+
+                                    {{ Empform.email.label }}
+                                    {{ Empform.email }}
+                                </div>
+                                <div class="mb-2 row">
+
+                                    {{ Empform.alternate_mobile.label }}
+                                    {{ Empform.alternate_mobile }}
+                                </div>
+                            
+                            </div>
+
+
+                            <div class="info mt-5 text-start">
+                                <div class="mb-2 row">
+                                    {{ Empform.ifsc_code.label }}
+                                    {{ Empform.ifsc_code }}
+                                    
+                                </div>
+                                <div class="mb-2 row">
+                                    {{ Empform.bank_name.label }}
+                                    {{ Empform.bank_name }}
+                                </div>
+                                <div class="mb-2 row">
+
+                                    {{ Empform.branch_name.label }}
+                                    {{ Empform.branch_name }}
+                                </div>
+                                <div class="mb-2 row">
+
+                                    {{ Empform.account_number.label }}
+                                    {{ Empform.account_number }}
+                                </div>
+                                <div class="mb-2 row">
+
+                                    {{ Empform.esi_number.label }}
+                                    {{ Empform.esi_number }}
+                                </div>
+                                <div class="mb-2 row">
+                                    
+                                    {{ Empform.pan.label }}
+                                    {{ Empform.pan }}
+                                </div>
+                                <div class="mb-2 row">
+                                    
+                                    {{ Empform.adhaar.label }}
+                                    {{ Empform.adhaar }}
+                                </div>
+                                <div class="mb-2 row">
+                                    
+                                    {{ Empform.vote.label }}
+                                    {{ Empform.vote }}
+                                </div>
+                                <div class="mb-2 row">
+
+                                    {{ Empform.passport.label }}
+                                    {{ Empform.passport }}
+                                </div>
+                            
+                            </div>
+
+                           
+
+
+                            <div class="info mt-5 text-start">
+                                <div class="mb-2 row">
+                                    {{ Empform.gross_salary.label }}
+                                    {{ Empform.gross_salary }}
+                                    
+                                </div>
+                                <div class="mb-2 row">
+                                    {{ Empform.mobile_salary.label }}
+                                    {{ Empform.mobile_salary }}
+                                </div>
+                                <div class="mb-2 row">
+
+                                    {{ Empform.basic_salary.label }}
+                                    {{ Empform.basic_salary }}
+                                </div>
+                                <div class="mb-2 row">
+
+                                    {{ Empform.house_rent_salary.label }}
+                                    {{ Empform.house_rent_salary }}
+                                </div>
+                                <div class="mb-2 row">
+
+                                    {{ Empform.education_salary.label }}
+                                    {{ Empform.education_salary }}
+                                </div>
+                                <div class="mb-2 row">
+                                    
+                                    {{ Empform.medical_salary.label }}
+                                    {{ Empform.medical_salary }}
+                                </div>
+                                <div class="mb-2 row">
+                                    
+                                    {{ Empform.other_salary.label }}
+                                    {{ Empform.other_salary }}
+                                </div>
+                                <div class="mb-2 row">
+                                    
+                                    {{ Empform.esi_emp.label }}
+                                    {{ Empform.esi_emp }}
+                                </div>
+                                <div class="mb-2 row">
+
+                                    {{ Empform.esi_empr.label }}
+                                    {{ Empform.esi_empr }}
+                                </div>
+                                <div class="mb-2 row">
+
+                                    {{ Empform.esi_total.label }}
+                                    {{ Empform.esi_total }}
+                                </div>
+                                <div class="mb-2 row">
+
+                                    {{ Empform.net_salary.label }}
+                                    {{ Empform.net_salary }}
+                                </div>
+                                <div class="mb-2 row">
+
+                                    {{ Empform.monthly_ctc.label }}
+                                    {{ Empform.monthly_ctc }}
+                                </div>
+                                <div class="mb-2 row">
+
+                                    {{ Empform.yearly_ctc.label }}
+                                    {{ Empform.yearly_ctc }}
+                                </div>
+                            
+                            </div>
+
+                           
+
+                            <div class="info mt-5 text-start">
+                                <div class="mb-2 row">
+                                    {{ Empform.education_doc.label }}
+                                    {{ Empform.education_doc }}
+                                    
+                                </div>
+                                <div class="mb-2 row">
+                                    {{ Empform.experience_doc.label }}
+                                    {{ Empform.experience_doc }}
+                                </div>
+                                <div class="mb-2 row">
+
+                                    {{ Empform.pay_slip_doc.label }}
+                                    {{ Empform.pay_slip_doc }}
+                                </div>
+                                <div class="mb-2 row">
+
+                                    {{ Empform.resignation_doc.label }}
+                                    {{ Empform.resignation_doc }}
+                                </div>
+                                <div class="mb-2 row">
+                                    {{ Empform.photograph_doc.label }}
+                                    {{ Empform.photograph_doc }}
+                                </div>
+                                <div class="mb-2 row">
+
+                                    {{ Empform.poi_doc.label }}
+                                    {{ Empform.poi_doc }}
+                                </div>
+                                <div class="mb-2 row">
+
+                                    {{ Empform.poa_doc.label }}
+                                    {{ Empform.poa_doc }}
+                                </div>
+                            
+                            </div>
+
+
+
+
+                            <input  class = "btn btn-sm btn-outline-primary"type="submit" value="Update">
+                        </form> </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Container-fluid Ends-->
+
+    </form>
+
+
+
+
+
+</div>
+
+
+
+
+{% endblock content %}
+
+{% block script %}
+
+<script>
+    $(function(){
+    var dtToday = new Date();
+    
+    var month = dtToday.getMonth() + 1;
+    
+    var day = dtToday.getDate();
+    var year = dtToday.getFullYear();
+    if(month < 10)
+        month = '0' + month.toString();
+    if(day < 10)
+        day = '0' + day.toString();
+    
+    var maxDate = year + '-' + month + '-' + day;
+    $('#doj').attr('max', maxDate);
+});
+</script>
+
+</script>
+<script type="text/javascript">
+    function setAttributes(element , attrs){
+        for (var key in attrs){
+            document.getElementById(element).setAttribute(key,attrs[key]);
+        }
+    }
+
+    setAttributes("id_mobile",{"pattern":"[6789][0-9]{9}","title":"Please enter exactly 10 digits",
+    "maxlength":"10","oninput":"numbersonly(this)"})
+    setAttributes("id_corporate_mobile",{"pattern":"[6789][0-9]{9}","title":"Please enter exactly 10 digits",
+    "maxlength":"10","oninput":"numbersonly(this)"})
+    
+    setAttributes("id_alternate_mobile",{"pattern":"[6789][0-9]{9}","title":"Please enter exactly 10 digits",
+    "maxlength":"10","oninput":"numbersonly(this)"})
+
+    setAttributes("id_account_number",{
+    "maxlength":"11","oninput":"numbersonly(this)"})
+    
+    setAttributes("id_pan",{"pattern":"[A-Z]{5}[0-9]{4}[A-Z]{1}"})
+
+    setAttributes("id_adhaar",{"maxlength":"12","minlength":"12","oninput":"numbersonly(this)"})
+
+    setAttributes("id_vote",{"maxlength":"10","pattern":"[A-Z]{3}[0-9]{7}" })
+
+    setAttributes("id_passport",{"maxlength":"8","pattern":"[A-Z]{1}[0-9]{1}[1-9]{1}[0-9]{5}"})
+
+    setAttributes("id_gross",{
+    "maxlength":"11","oninput":"numbersonly(this)"})
+    setAttributes("id_mobile_bill",{
+    "maxlength":"11","oninput":"numbersonly(this)"})
+
+    setAttributes("id_basic",{
+    "maxlength":"11","oninput":"numbersonly(this)"})
+
+    setAttributes("id_house_rent",{
+    "maxlength":"11","oninput":"numbersonly(this)"})
+
+    setAttributes("id_education",{
+    "maxlength":"11","oninput":"numbersonly(this)"})
+
+    setAttributes("id_medical",{
+    "maxlength":"11","oninput":"numbersonly(this)"})
+
+    setAttributes("id_other",{
+    "maxlength":"11","oninput":"numbersonly(this)"})
+
+    setAttributes("id_esi_emp",{
+    "maxlength":"11","oninput":"numbersonly(this)"})
+
+    setAttributes("id_esi_empr",{
+    "maxlength":"11","oninput":"numbersonly(this)"})
+
+    setAttributes("id_esi_total",{
+    "maxlength":"11","oninput":"numbersonly(this)"})
+
+    setAttributes("id_net_salary",{
+    "maxlength":"11","oninput":"numbersonly(this)"})
+
+    setAttributes("id_monthly_ctc",{
+    "maxlength":"11","oninput":"numbersonly(this)"})
+    setAttributes("id_yearly_ctc",{
+    "maxlength":"11","oninput":"numbersonly(this)"})
+
+
+
+    $(function () {
+        $('#id_pan').keyup(function () {
+           this.value = this.value.toLocaleUpperCase();
+        });
+     });
+    $(function () {
+        $('#id_vote').keyup(function () {
+           this.value = this.value.toLocaleUpperCase();
+        });
+     });
+
+
+    document.getElementById("id_name").setAttribute("required",true)
+</script>
+
+{% endblock script %}

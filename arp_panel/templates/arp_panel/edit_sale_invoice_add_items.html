@@ -1,0 +1,296 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<div class="page-body">
+
+    <!-- Container-fluid starts-->
+    <div class="container-fluid">
+        <div class="user-profile mt-5">
+            <div class="row">
+                <div class="col-md-6">
+                    <h5 class="mb-0 mt-2">Add Items</h5>
+                </div>
+
+                <!-- user profile first-style start-->
+                <div class="col-sm-6 offset-md-3 col-12">
+                    <div class="card hovercard text-center mt-3 rs-mt-60">
+
+
+                        <form action="" id="update_product" method="post">
+                            {% csrf_token %}
+                            <div class="info mt-5 text-start">
+                                <div class="mb-2 row">
+                                    <label class="rs-pb-0 col-md-4 col-12 col-form-label">Item ID</label>
+                                    <select id="item_id" class="form-select"  onchange="this.options[this.selectedIndex].value && (window.location = this.options[this.selectedIndex].value);">
+                                        <option></option>
+                                       {% for i in prd %}
+                                           <option value="/arppanel/edit_add_items1/{{ i.id }}">{{ i.name }}</option>
+                                       {% endfor %}
+                                        {% for i in ser %}
+                                           <option value="{{ i.id }}">{{ i.name }} {{i.id}}</option>
+                                       {% endfor %}
+                                    </select>
+                                </div>
+
+                                <div class="mb-2 row">
+                                    <label class="rs-pb-0 col-md-4 col-12 col-form-label">Item Name</label>
+                                    <div class="col-md-8 col-12">
+                                        <input type="text" id="name" value="{{sbo.name}}" name="name" class="form-control" minlength="2" maxlength="30" required>
+                                    </div>
+                                </div>
+                                <div class="mb-2 row">
+                                    <label class="rs-pb-0 col-md-4 col-12 col-form-label">Date</label>
+                                    <div class="col-md-8 col-12">
+                                        <input value="{{sbo.date|date:'Y-m-d'}}" type="date" name="date" id="date" minlength="2" maxlength="30" class="form-control" required>
+                                    </div>
+                                </div>
+
+                                <div class="mb-2 row">
+                                    <label class="rs-pb-0 col-md-4 col-12 col-form-label">Item Serial No</label>
+                                    <div class="col-md-8 col-12">
+                                        <input type="text" value="{{sbo.product_code}}" name="product_code" class="form-control" required>
+                                    </div>
+                                </div>
+                                <div class="mb-2 row">
+                                    <label class="rs-pb-0 col-md-4 col-12 col-form-label">HSN Code</label>
+                                    <div class="col-md-8 col-12">
+                                        <input type="number" value="{{sbo.hsn_code}}" name="hsn_code" class="form-control" required>
+                                    </div>
+                                </div>
+                                <div class="mb-2 row">
+                                    <label class="rs-pb-0 col-md-4 col-12 col-form-label">Description</label>
+                                    <div class="col-md-8 col-12">
+                                        <input type="text" name="description" id="description" class="form-control" required>
+                                    </div>
+                                </div>
+                                <div class="mb-2 row">
+                                    <label class="rs-pb-0 col-md-4 col-12 col-form-label">Quantity</label>
+                                    <div class="col-md-8 col-12">
+                                        <input type="number" id="quantity" value="{{sbo.minimum_stock_quantity}}" name="quantity" class="form-control quan1" required>
+                                    </div>
+                                </div>
+                                <div class="mb-2 row">
+                                    <label class="rs-pb-0 col-md-4 col-12 col-form-label">Unit</label>
+                                    <div class="col-md-8 col-12">
+                                        <input type="text" value="{{sbo.unit}}" id="unit" name="unit" class="form-control" required>
+                                    </div>
+                                </div>
+                                <div class="mb-2 row">
+                                    <label class="rs-pb-0 col-md-4 col-12 col-form-label">Rate(Price/Unit)</label>
+                                    <div class="col-md-8 col-12">
+                                        <input type="number" value="{{sbo.price_per_unit}}" id="rate" name="rate" class="form-control pPrice1" required>
+                                    </div>
+                                </div>
+                                <div class="mb-2 row">
+                                    <label class="rs-pb-0 col-md-4 col-12 col-form-label">Average Purchase Price</label>
+                                    <div class="col-md-8 col-12">
+                                        <input type="number" value="{{sbo.purchase_price}}" name="average_purchase_price" class="form-control" required>
+                                    </div>
+                                </div>
+                                <div class="mb-2 row">
+                                    <label class="rs-pb-0 col-md-4 col-12 col-form-label">Max Purchase Price</label>
+                                    <div class="col-md-8 col-12">
+                                        <input type="number" name="max_purchase_price" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <h5 class="mb-0 mt-2">Totals and Tax</h5>
+                                </div>
+                                <div class="mb-2 row">
+                                    <label class="rs-pb-0 col-md-4 col-12 col-form-label">Subtotal</label>
+                                    <div class="col-md-8 col-12">
+                                        <input type="number" id="cBalance" name="subtotal" class="form-control sub" required>
+                                    </div>
+                                </div>
+                                <div class="mb-2 row">
+                                    <label class="rs-pb-0 col-md-4 col-12 col-form-label">Discount</label>
+                                    <div class="col-md-8 col-12">
+                                        <input type="number" value="0.0" id="chDiscount" name="discount" class="form-control" required>
+                                    </div>
+                                </div>
+                                <div class="mb-2 row">
+                                    <label class="rs-pb-0 col-md-4 col-12 col-form-label">Tax</label>
+                                    <div class="col-md-8 col-12">
+                                        <input type="number" value="{{sbo.tax_rate}}" id="tax" name="tax" class="form-control" required>
+                                    </div>
+                                </div>
+                                <div class="mb-2 row">
+                                    <label class="rs-pb-0 col-md-4 col-12 col-form-label"><b>Total Amount</b></label>
+                                    <div class="col-md-8 col-12">
+                                        <input type="text" id="result" name="total_amount" class="form-control" required>
+                                    </div>
+                                </div>
+
+
+                                <div class="card-footer text-end pt-2 p-0 mt-2">
+                                    <div class="col-sm-9 offset-sm-3">
+                                        <button class="btn btn-primary" type="submit" data-bs-original-title=""
+                                            title="">Save</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Container-fluid Ends-->
+
+
+
+</div>
+<!--<script>-->
+<!--    $('#item_id').on('change', function(e){-->
+<!--        e.preventDefault();-->
+<!--        selected_player_id = $('#item_id').val();-->
+<!--        $.ajax({-->
+<!--            type : "GET",-->
+<!--            url: '/arppanel/add_items/' + selected_player_id,-->
+<!--            dataType: 'json',-->
+<!--            success: function (data) {-->
+<!--                $.each(data, function (key, val) {-->
+<!--                    $(".details").append("\-->
+<!--                    <tr>\-->
+<!--                    <td>"+val['first_name']+"</td>\-->
+<!--                    <td>"+val['last_name']+"</td>\-->
+<!--                    <td>"+val['age']+"</td>\-->
+<!--                    </tr>\-->
+<!--                    ");-->
+<!--                });-->
+<!--            },-->
+<!--            error: function(errMsg){-->
+<!--                alert('not Work');-->
+<!--            }-->
+<!--        });-->
+<!--    });-->
+<!--</script>-->
+
+<script>
+
+$(document).ready(function () {
+       var price=parseFloat($(".pPrice1").val()).toFixed();
+       var quantity=parseFloat($(".quan1").val()).toFixed();
+       var total=parseFloat(price*quantity).toFixed();
+       $('.sub').val(total);
+       var amd = $('#cBalance').val();
+       var disc = $('#chDiscount').val();
+       var tax = $('#tax').val();
+       if (disc != '' && amd != '' && tax != '') {
+            discount_cal = amd * disc / 100;
+            total1 = amd - discount_cal;
+            tax_cal = total1 * tax / 100;
+            total2 = total1 + tax_cal;
+            grand_total = total2.toFixed();
+            $('#result').val(grand_total);
+       }else{
+            $('#result').val(parseInt(0.0));
+        }
+});
+$(document).on("change keyup blur", "#rate",function () {
+       var price=parseFloat($(".pPrice1").val()).toFixed();
+       var quantity=parseFloat($(".quan1").val()).toFixed();
+       var total=parseFloat(price*quantity).toFixed();
+       $('.sub').val(total);
+        var amd = $('#cBalance').val();
+        var disc = $('#chDiscount').val();
+        var tax = $('#tax').val();
+        if (disc != '' && amd != '' && tax != '') {
+            discount_cal = amd * disc / 100;
+            total1 = amd - discount_cal;
+            tax_cal = total1 * tax / 100;
+            total2 = total1 + tax_cal;
+            grand_total = total2.toFixed();
+            $('#result').val(grand_total);
+        }else{
+            $('#result').val(parseInt(amd));
+        }
+
+});
+$(document).on("change keyup blur", "#quantity",function () {
+       var price=parseFloat($(".pPrice1").val()).toFixed();
+       var quantity=parseFloat($(".quan1").val()).toFixed();
+       var total=parseFloat(price*quantity).toFixed();
+       $('.sub').val(total);
+       var amd = $('#cBalance').val();
+       var disc = $('#chDiscount').val();
+       var tax = $('#tax').val();
+       if (disc != '' && amd != '' && tax != '') {
+            discount_cal = amd * disc / 100;
+            total1 = amd - discount_cal;
+            tax_cal = total1 * tax / 100;
+            total2 = total1 + tax_cal;
+            grand_total = total2.toFixed();
+            $('#result').val(grand_total);
+       }else{
+            $('#result').val(parseInt(amd));
+        }
+});
+
+
+</script>
+<script>
+$(document).on("change keyup blur", "#chDiscount", function() {
+  var amd = $('#cBalance').val();
+  var disc = $('#chDiscount').val();
+  var tax = $('#tax').val();
+  if (disc != '' && amd != '') {
+    discount_cal = amd * disc / 100;
+    total1 = amd - discount_cal;
+    tax_cal = total1 * tax / 100;
+    total2 = total1 + tax_cal;
+    grand_total = total2.toFixed();
+    $('#result').val(grand_total);
+  }else{
+    $('#result').val(parseInt(amd));
+  }
+})
+</script>
+<script>
+$(document).on("change keyup blur", "#tax", function() {
+  var amd = $('#cBalance').val();
+  var disc = $('#chDiscount').val();
+  var tax = $('#tax').val();
+  if (disc != '' && amd != '' && tax != '') {
+    discount_cal = amd * disc / 100;
+    total1 = amd - discount_cal;
+    tax_cal = total1 * tax / 100;
+    total2 = total1 + tax_cal;
+    grand_total = total2.toFixed();
+    $('#result').val(grand_total);
+  }else{
+    $('#result').val(parseInt(amd));
+  }
+})
+$(document).on("change keyup blur", "#cBalance", function() {
+  var amd = $('#cBalance').val();
+  var disc = $('#chDiscount').val();
+  var tax = $('#tax').val();
+  if (disc != '' && amd != '' && tax != '') {
+    discount_cal = amd * disc / 100;
+    total1 = amd - discount_cal;
+    tax_cal = total1 * tax / 100;
+    total2 = total1 + tax_cal;
+    grand_total = total2.toFixed();
+    $('#result').val(grand_total);
+  }else{
+    $('#result').val(parseInt(amd));
+  }
+})
+</script>
+
+<script>
+$("#update_product").submit(function( event ) {
+    event.preventDefault();
+    window.localStorage.setItem('key',$('#result').val());
+    window.localStorage.setItem('tax',$('#tax').val());
+    window.localStorage.setItem('name',$('#name').val());
+    window.localStorage.setItem('sub_total',$('#cBalance').val());
+    window.localStorage.setItem('description',$('#description').val());
+    a = window.localStorage.getItem('id');
+    window.location.href = window.localStorage.getItem('path');
+
+});
+</script>
+{% endblock content %}

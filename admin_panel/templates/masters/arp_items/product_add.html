@@ -1,0 +1,209 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+ 
+{% block style %}
+<style>
+   .w-50-m-auto{width:50%!important;margin:auto!important;}
+</style>
+{% endblock style %}
+
+
+{% block content %}
+
+<div class="page-body">
+   <form method="post">
+      {% csrf_token %}
+   <div class="container-fluid">
+      <div class="row justify-content-center">
+         <div class="col-sm-12 col-md-6">
+            <div class="card">
+               <div class="card-header px-4 py-3">
+                  <h5>Add Product</h5>
+               </div>
+               <div class="card-body p-4 rs-py-10">
+                  <div class="mb-2 row">
+                     <label class="col-md-4 col-form-label rs-pb-0">Item Name</label>
+                     <div class="col-md-8">
+                        <div class="input-group">
+                           <input class="form-control"  minlength="2" maxlength="30"type="text" name="productname" required>
+                        </div>
+                     </div>
+                  </div>
+                  
+                  <div class="mb-2 row">
+                     <label class="col-md-4 col-form-label rs-pb-0">Category</label>
+                     <div class="col-md-8">
+                        <div class="input-group">
+                        <select name="category" id="category" > 
+                           {% for i in categorys %}  
+                              <option value="{{ i }}">{{ i }}</option>
+                           {% endfor %}
+                           
+                     </select>
+                           
+                        </div>
+                     </div>
+                  </div>
+                  <div class="mb-2 row">
+                     <label class="col-md-4 col-form-label rs-pb-0">HSN/SAC</label>
+                     <div class="col-md-8">
+                        <div class="input-group">
+                           <input class="form-control" type="text" oninput="numbersonly(this)" name="hsn_code" required >
+                        </div>
+                     </div>
+                  </div>
+                  <div class="mb-2 row">
+                     <label class="col-md-4 col-form-label rs-pb-0">Item Code</label>
+                     <div class="col-md-8">
+                        <div class="input-group">
+                           <input class="form-control" type="text" name="product_code" required>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="mb-2 row">
+                     <label class="col-md-4 col-form-label rs-pb-0">Sale Price</label>
+
+                     <div class="col-md-8">
+                        <div class="input-group">
+
+                           <input class="form-control" type="number" name="sale_price" required>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="mb-2 row">
+                     <label class="col-md-4 col-form-label rs-pb-0">Tax Type</label>
+                     <div class="col-md-8">
+                        <div class="input-group">
+                        <select name="sale_tax_type" required >
+                           {% for i,j in product.taxTypes %}
+                              <option value="{{ i }}" >{{ j }}</option>
+                           {% endfor %}
+                
+                         </select>
+                         
+                        </div>
+                     </div>
+                  </div>
+                  <div class="mb-2 row">
+                     <label class="col-md-4 col-form-label rs-pb-0">Purchase Price</label>
+                     <div class="col-md-8">
+                        <div class="input-group">
+                           <input class="form-control" type="number" name="purchase_price" required>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="mb-2 row">
+                     <label class="col-md-4 col-form-label rs-pb-0">Tax Type</label>
+                     <div class="col-md-8">
+                        <div class="input-group">
+                           <select name="purchase_taxtype" required >
+                              {% for i,j in product.taxTypes %}
+                                 <option value="{{ i }}" >{{ j }}</option>
+                              {% endfor %}
+                   
+                            </select>
+                          
+                        </div>
+                     </div>
+                  </div>
+                  <div class="mb-2 row">
+                     <label class="col-md-4 col-form-label rs-pb-0">Select Tax Rate</label>
+                     <div class="col-md-8">
+                        <div class="input-group">
+                        <select name="tax_rate" required >
+                           {% for i,j in gst %}
+                              <option value="{{ i }}" >{{ j }}</option>
+                           {% endfor %}   
+                           
+                              
+                        </select>      
+                          
+                        </div>
+                     </div>
+                  </div>
+                  <div class="mb-2 row">
+                     <label class="col-md-4 col-form-label rs-pb-0">Opening Stock</label>
+                     <div class="col-md-8">
+                        <div class="input-group">
+                           <input class="form-control" type="number" name="opening_stock" required>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="mb-2 row">
+                     <label class="col-md-4 col-form-label rs-pb-0">At Price/Unit</label>
+                     <div class="col-md-8">
+                        <div class="input-group">
+                           <input class="form-control" type="number" name="price_per_unit" required>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="mb-2 row">
+                     <label class="col-md-4 col-form-label rs-pb-0">Date</label>
+                     <div class="col-md-8">
+                        <div class="input-group">
+                           <input class="form-control" type="date" id = "date" name="date" required >
+                        </div>
+                     </div>
+                  </div>
+                  <div class="mb-2 row">
+                     <label class="col-md-4 col-form-label rs-pb-0">Min Stock Qty</label>
+                     <div class="col-md-8">
+                        <div class="input-group">
+                           <input class="form-control" type="number" name="minimum_stock_quantity" required >
+                        </div>
+                     </div>
+                  </div>
+                  <div class="mb-2 row">
+                     <label class="col-md-4 col-form-label rs-pb-0">Unit</label>
+                     <div class="col-md-8">
+                        <div class="input-group">
+                           <input class="form-control" type="number" name="unit" required>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <div class="card-footer text-end py-4 rs-py-10">
+                        <div class="col-sm-9 offset-sm-3">
+                           <button class="btn btn-primary" type="submit" data-bs-original-title="" title="">Submit</button>
+                           <input class="btn btn-light" type="reset" value="Cancel" data-bs-original-title="" title="">
+                        </div>
+                     </div>
+            </div>
+        </div>
+      </div>
+   </div>
+   </form>
+</div>
+
+
+
+{% endblock content %}
+
+
+
+
+{% block script %}
+
+<script>
+    $(function(){
+    var dtToday = new Date();
+    
+    var month = dtToday.getMonth() + 1;
+    
+    var day = dtToday.getDate();
+    var year = dtToday.getFullYear();
+    if(month < 10)
+        month = '0' + month.toString();
+    if(day < 10)
+        day = '0' + day.toString();
+    
+    var maxDate = year + '-' + month + '-' + day;
+    $('#date').attr('max', maxDate);
+});
+</script>
+
+{% endblock script %}

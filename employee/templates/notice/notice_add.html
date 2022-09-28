@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<div class="page-body">
+
+    <!-- Container-fluid starts-->
+    <div class="container-fluid">
+        <div class="user-profile mt-5">
+            <div class="row">
+                <div class="col-md-6">
+                    <h5 class="mb-0 mt-2">Add Notice</h5>
+                </div>
+                <!-- user profile first-style start-->
+                <div class="col-sm-6 offset-md-3 col-12">
+                    <div class="card hovercard text-center mt-3 rs-mt-60">
+                        <form method="post" enctype="multipart/form-data">
+                            {% csrf_token %}
+
+                            <div class="info mt-5 text-start">
+                                <div class="mb-2 row">
+                                    {{ form.name.label }}
+                                    {{ form.name }}
+                                    
+                                </div>
+                                <div class="mb-2 row">
+                                    {{ form.notice_content.label }}
+                                    {{ form.notice_content }}
+                                </div>
+                                <div class="mb-2 row">
+
+                                    {{ form.attachment.label }}
+                                    {{ form.attachment }}
+                                </div>
+                            </div>
+
+                            <button class="btn mb-2 btn-primary" type="submit" data-bs-original-title=""
+                                            title="">ADD</button>
+                        </form> </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Container-fluid Ends-->
+
+    </div>
+
+    {% endblock content %}

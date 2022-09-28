@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}  
+
+<div class="page-body">
+<form method="post">
+    {% csrf_token %}
+   <!-- Container-fluid starts-->
+   <div class="container-fluid">
+        <div class="card p-3 py-2">
+            <div class="row">
+                
+                <div class="col-md-6">
+                    <h5 class="mb-0 mt-2">Attendance</h5>
+                </div>
+                
+            </div>
+        </div>
+        <div class="card rs-mt-10 rs-br-0">
+            <div class="card-body p-4 rs-p-0">
+                <div class="">
+                    <table class="table rs_table">
+                        <thead>
+                            <tr>
+                                <th class="rs-w-5"><span  class="hidden-xs">Sl No.</span></th>
+                                <th>Name</th>
+                                <th>date</th>
+                                <th>In time</th>
+                                
+                                <th>status</th>
+                                <th>Reject</th>
+                                <th>Approve Half</th>
+                                <th class="rs-text-right">Reject full</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for attendance in attendances %}
+                            
+                            {% if attendance.status != 'R' %}
+                            
+                            <tr>
+                                <td class="rs-pr-0">
+                                    <span class="badge rounded-pill badge-primary visible-xs">{{ forloop.counter }}</span>
+                                    <span class="hidden-xs">{{ forloop.counter }}</span>
+                                </td>
+                                <td>{{ attendance.emp.name }}</td>
+                                <td>{{ attendance.date|date:'Y-m-d' }}</td>
+                                <td>{{ attendance.in_time|date:'g:i  A' }}</td>
+                                <td>{% if attendance.half %}<p class="text-grey"><b>Half</b></p>{% else %}
+                                    <p class="text-grey"><b>Full</b></p>{% endif %}</td>
+                                <td><a class="text-danger" href="{% url 'reject_attendance' attendance.id %}">Reject</a></td>
+                                <td>{% if attendance.half == False %}<a class="text-primary" href="{% url 'makehalf' attendance.id %}">make-half</a>{% endif %}</td>
+                                <td>{% if attendance.half %}<a class="text-primary" href="{% url 'makefull' attendance.id %}">make-full</a>{% endif %}</td>
+                                
+                                
+                                {% comment %} <td class="rs-text-right"><a href="{% url 'leave_approval_approve' leave.id %}" class="btn btn-outline-success">Approve</a>
+                                    <a href="{% url 'leave_approval_reject' leave.id %}" class="btn btn-outline-danger">Reject</a></td> {% endcomment %}
+                            </tr>
+
+                            {% endif %}
+
+                            {% endfor %}
+                            
+                            
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+   <!-- Container-fluid Ends-->
+   </form>
+</div>
+
+{% endblock content %}

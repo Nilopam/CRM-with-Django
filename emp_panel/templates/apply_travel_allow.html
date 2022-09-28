@@ -1,0 +1,234 @@
+{% extends 'empbase.html' %}
+{% load static %}
+{% block content %}
+{% block style %}
+<link href="http://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/css/datepicker.css" rel="stylesheet" type="text/css" />
+{% endblock style %}
+<div class="page-body">
+
+    <!-- Container-fluid starts-->
+    <div class="container-fluid">
+        <div class="card p-3 py-2">
+            <div class="row">
+
+                <div class="col-md-6">
+                    <h5 class="mb-0 mt-2">Apply TA</h5>
+
+                </div>
+
+            </div>
+        </div>
+        <div class="card rs-mt-10 rs-br-0">
+            <div class="card-body p-4 rs-p-0">
+                <form method="post">
+                    {% csrf_token %}
+                    <input type="hidden" name="form-type" value="add">
+                    <div class="row ">
+                        <div class="col-3">
+                            <label for="from_where">From</label>
+                            <input type="text" required class="form-control" placeholder="Starting point"
+                                name="from_where" id="">
+                        </div>
+                        <div class="col-3">
+                            <label for="destination">To</label>
+                            <input type="text" required class="form-control" placeholder="Destination point"
+                                name="destination" id="">
+                        </div>
+
+
+                    </div>
+                    <div class="row mt-1">
+                        <div class="col-2">
+                            <label for="date">Date</label>
+                            <input type="date" required class="form-control" name="date" id="date">
+                        </div>
+
+                    </div>
+                    <div class="row mt-2">
+                        <div class="col-3">
+                            <label for="expense">Expense</label>
+                            <input type="text" required class="form-control" placeholder="Expense" name="expense"
+                                id="expense">
+                        </div>
+                        <div class="col-3">
+                            <label for="distance">Distance</label>
+                            <input type="text" required  oninput="numbersonly(this)" class="form-control" placeholder="Kilometer" name="distance"
+                                id="distance">
+                        </div>
+
+                    </div>
+                    <div class="row mt-2">
+                        <div class="col-3">
+                            <label for="purpose">Purpose</label>
+                            <input type="text" required class="form-control" placeholder="Purpose" name="purpose" id="">
+                        </div>
+                        <div class="col-3">
+                            <label for="remarks">Remarks</label>
+                            <input type="text" required class="form-control" placeholder="Remarks" name="remarks" id="">
+                        </div>
+
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-4"><input type="submit" class=" btn btn-primary" value="submit">
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+
+        <div class="card p-3 py-2">
+            <div class="row">
+
+                <div class="col-md-6">
+                    <form action="" method="post">
+                        {% csrf_token %}
+                        <input type="hidden" name="form-type" value="filter">
+                        <div class="row">
+                            <div class="col-4">
+                                 
+                                <input type="text" placeholder="From date" autocomplete="off" class="form-control" name="from_date" id="from_date">
+                            </div>
+                            <div class="col-4">
+                                
+                                <input type="text" placeholder="To date" autocomplete="off" class="form-control" name="to_date" id="to_date">
+                                
+
+                            </div>
+                            <div class="col-4">
+                                <input type="submit" class="btn btn-outline-primary" value="search">
+                            </div>
+                        </div>
+                    </form>
+
+                </div>
+
+            </div>
+        </div>
+
+        <div class="card rs-mt-10 rs-br-0">
+            <div class="card-body p-4 rs-p-0">
+                <div class="">
+                    <table class="table rs_table">
+                        <thead>
+                            <tr>
+                                <th class="rs-w-5"><span class="hidden-xs">Sl No.</span></th>
+                                <th>Date</th>
+                                <th>From</th>
+
+                                <th>To</th>
+                                <th>Distance</th>
+                                <th>Expense</th>
+                                <th>Status</th>
+
+
+                            </tr>
+                        </thead>
+                        <tbody>
+
+
+                            {% for ta in tas %}
+
+                            <tr>
+                                <td class="rs-pr-0">
+                                    <span class="badge rounded-pill badge-primary visible-xs">1</span>
+                                    <span class="hidden-xs">{{ forloop.counter }}</span>
+                                </td>
+                                <td>{{ ta.date }}</td>
+                                <td>{{ ta.from_where|capfirst }}</td>
+                                <td>{{ ta.destination|capfirst }}</td>
+                                <td>{{ ta.distance }}</td>
+                                <td>{{ ta.expense }}</td>
+                                <td>{% if ta.status == 'A' %}
+                                    <p class="text-success">Approved</p>
+                                    {% elif ta.status == 'P' %}<p class="text-warning">Pending</p>
+                                    {% elif ta.status == 'R' %}<p class="text-danger">Rejected</p>
+                                    {% endif %}
+
+
+
+                                </td>
+
+
+
+                            </tr>
+
+                            {% endfor %}
+
+
+
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+    </div>
+    <!-- Container-fluid Ends-->
+
+</div>
+
+{% endblock content %}
+
+{% block script %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.js"></script>
+<script>
+    $(function () {
+        var dtToday = new Date();
+
+        var month = dtToday.getMonth() + 1;
+
+        var day = dtToday.getDate();
+        var year = dtToday.getFullYear();
+        if (month < 10)
+            month = '0' + month.toString();
+        if (day < 10)
+            day = '0' + day.toString();
+
+        var maxDate = year + '-' + month + '-' + day;
+        $('#date').attr('max', maxDate);
+    });
+
+
+
+    $("#from_date").datepicker({
+    format: 'yyyy/mm/dd',
+    autoclose: true, 
+    }).on('changeDate', function (selected) {
+        var minDate = new Date(selected.date.valueOf());
+        var someDate = new Date(selected.date.valueOf());
+        var numberOfDaysToAdd = 500;
+	someDate.setDate(someDate.getDate() + numberOfDaysToAdd);
+        var dd = someDate.getDate();
+	var mm = someDate.getMonth() + 1;
+	var y = someDate.getFullYear();
+	var someFormattedDate = y + '/'+ mm + '/'+ dd;
+
+        $('#to_date').datepicker('setStartDate', minDate);
+        $('#to_date').datepicker('setEndDate', someFormattedDate);
+    });
+
+$("#to_date").datepicker({     
+    format: 'yyyy/mm/dd',
+    autoclose: true,
+    }).on('changeDate', function (selected) {
+        var maxDate = new Date(selected.date.valueOf());
+        var someDate = new Date(selected.date.valueOf());
+        var numberOfDaysToAdd = 500;
+	someDate.setDate(someDate.getDate() - numberOfDaysToAdd);
+	var dd = someDate.getDate();
+	var mm = someDate.getMonth() + 1;
+	var y = someDate.getFullYear();
+	var someFormattedDate = y + '/'+ mm + '/'+ dd;
+        $('#from_date').datepicker('setStartDate', someFormattedDate);
+        $('#from_date').datepicker('setEndDate', maxDate);
+    });
+
+</script>
+{% endblock script %}
